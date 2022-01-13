@@ -40,8 +40,8 @@ github.com/ChainSafe/go-schnorrkel v0.0.0-20200405005733-88cbf1b4c40d/go.mod h1:
 github.com/DATA-DOG/go-sqlmock v1.3.3/go.mod h1:f/Ixk793poVmq4qj/V1dPUg2JEAKC73Q5eFN3EC/SaM=
 github.com/FactomProject/basen v0.0.0-20150613233007-fe3947df716e/go.mod h1:kGUqhHd//musdITWjFvNTHn90WG9bMLBEPQZ17Cmlpw=
 github.com/JohnCGriffin/overflow v0.0.0-20170615021017-4d914c927216/go.mod h1:X0CRv0ky0k6m906ixxpzmDRLvX58TFUKS2eePweuyxk=
-github.com/KSlashh/poly-abi v0.0.0-20211102065239-13dbd65b2882 h1:Yej22ngg5FEuRBF3K/AbVmH3f6Bx20V8ZQvkMZYV72o=
-github.com/KSlashh/poly-abi v0.0.0-20211102065239-13dbd65b2882/go.mod h1:5pbvzROvsM8e3f58HEDIxP70GHc2h0elDyzvy2Ox1VE=
+github.com/KSlashh/poly-abi v0.0.0-20211223100118-850e8abcc4f4 h1:6I+OnEdsW4k5KfTX9YeHYSFoJFyjRuST1yI2MvV3Ghc=
+github.com/KSlashh/poly-abi v0.0.0-20211223100118-850e8abcc4f4/go.mod h1:5pbvzROvsM8e3f58HEDIxP70GHc2h0elDyzvy2Ox1VE=
 github.com/Knetic/govaluate v3.0.1-0.20171022003610-9aa49832a739+incompatible/go.mod h1:r7JcOSlj0wfOMncg0iLm8Leh48TZaKVeNIfJntJ2wa0=
 github.com/OneOfOne/xxhash v1.2.2/go.mod h1:HSdplMjZKSmBqAxg5vPj2TmRDmfkzw+cTzAElWljhcU=
 github.com/OneOfOne/xxhash v1.2.5/go.mod h1:eZbhyaAYD41SGSSsnmcpxVoRiQ/MPUTjUdIIOT9Um7Q=

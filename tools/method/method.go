@@ -29,6 +29,7 @@ import (
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/contracts/native/go_abi/header_sync_abi"
 	"github.com/ethereum/go-ethereum/contracts/native/go_abi/side_chain_manager_abi"
 	"github.com/ethereum/go-ethereum/contracts/native/header_sync/bsc"
@@ -425,38 +426,32 @@ func SyncZionToETH(z *zion.ZionTools, e *eth.ETHTools) {
 	if err != nil {
 		panic(err)
 	}
-	curr, err := z.GetNodeHeight()
-	if err != nil {
-		panic(err)
-	}
-	epochInfo, err := z.GetEpochInfo()
+
+	epoch, err := z.GetEpochInfo()
 	if err != nil {
 		panic(fmt.Errorf("SyncZionToETH, GetEpochInfo error: %s", err.Error()))
 	}
-	rawEpochInfo, err := zion.GetRawEpochInfo(epochInfo.ID, epochInfo.StartHeight, epochInfo.Peers)
-	if err != nil {
-		panic(fmt.Errorf("SyncZionToETH, GetRawEpochInfo error: %s", err.Error()))
+	curr := uint64(0)
+	if epoch.StartHeight > 1 {
+		curr = epoch.StartHeight - 1
 	}
-	rawHeader, rawSeals, err := z.GetRawHeaderAndRawSeals(curr)
+
+	rawHeader, _, err := z.GetRawHeaderAndRawSeals(curr)
 	if err != nil {
 		panic(fmt.Errorf("SyncZionToETH, GetRawHeaderAndRawSeals error: %s", err.Error()))
 	}
-	epochProofIndex := zion.GetEpochKey(epochInfo.ID)
-	accountProof, storageProof, err := z.GetRawProof(utils.NodeManagerContractAddress.String(), epochProofIndex.String(), curr)
-	if err != nil {
-		panic(fmt.Errorf("SyncZionToETH, GetRawProof error: %s", err.Error()))
-	}
 
-	contractabi, err := abi.JSON(strings.NewReader(ccm.EthCrossChainManagerImplemetationABI))
+	contractabi, err := abi.JSON(strings.NewReader(ccm.EthCrossChainManagerImplementationABI))
 	if err != nil {
 		log.Errorf("SyncZionToETH, abi.JSON error: %v", err)
 		return
 	}
-	txData, err := contractabi.Pack("initGenesisBlock", rawHeader, rawSeals, accountProof, storageProof, rawEpochInfo)
+	txData, err := contractabi.Pack("initGenesisBlock", rawHeader)
 	if err != nil {
 		log.Errorf("SyncZionToETH, contractabi.Pack error: %v", err)
 		return
 	}
+	log.Infof("try to init genesis block %d, rawHeader: %s", curr, hexutil.Encode(rawHeader))
 
 	gasPrice, err := e.GetEthClient().SuggestGasPrice(context.Background())
 	if err != nil {
