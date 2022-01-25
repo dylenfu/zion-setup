@@ -290,7 +290,7 @@ func (self *ZionTools) WaitTransactionConfirm(hash common.Hash) bool {
 		if time.Now().After(start.Add(time.Minute * 1)) {
 			return false
 		}
-		time.Sleep(time.Second * 1)
+		time.Sleep(time.Second * 3)
 		_, ispending, err := self.GetEthClient().TransactionByHash(context.Background(), hash)
 		if err != nil {
 			continue

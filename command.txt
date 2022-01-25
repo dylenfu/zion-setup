@@ -1,3 +1,16 @@
-./zion-setup -cmd=sync_genesis_header -conf=config_xdai.json
+### build
+go build -o setup main.go
 
-./zion-setup -cmd=register_side_chain -conf=config_xdai.json
+### bsc
+./setup -cmd=register_side_chain -conf=sidechain/bsc.json
+./setup -cmd=sync_genesis_header -conf=sidechain/bsc.json
+
+bsc sync height 16166872
+zion sync height 0
+
+### heco
+./setup -cmd=register_side_chain -conf=sidechain/heco.json
+./setup -cmd=sync_genesis_header -conf=sidechain/heco.json
+
+heco sync height 12068571
+zion sync height 0
